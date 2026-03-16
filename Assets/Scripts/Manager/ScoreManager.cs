@@ -11,7 +11,6 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     protected override void Awake()
     {
         base.Awake();
-        ResetScore();
     }
 
     public void AddScore(int amount)

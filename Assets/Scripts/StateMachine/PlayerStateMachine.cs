@@ -15,6 +15,7 @@ public class PlayerStateMachine : StateMachine
         SwitchState(new PlayerMoveState(this));
         CollisionHandler.OnCollideWithHazard += HandleCollideWithHazard;
         CollisionHandler.OnCollideWithObstacle += HandleCollideWithObstacle;
+        GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
     }
 
     private void HandleCollideWithHazard()
@@ -27,5 +28,13 @@ public class PlayerStateMachine : StateMachine
     {
         SwitchState(new PlayerStumbleState(this));
         Debug.Log("Collided with Obstacle");
+    }
+
+    private void HandleGameStateChanged(GameState newState)
+    {
+        if (newState == GameState.GameOver)
+        {
+            SwitchState(new PlayerLoseState(this));
+        }
     }
 }

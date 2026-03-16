@@ -3,11 +3,18 @@ using System.Collections.Generic;
 
 public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
 {
+    [Header("References")]
     [SerializeField] private ChunkPool _chunkPool;
+
+    [Header("Level Settings")]
+    [Tooltip("Number of chunks to spawn at the start of the game")]
     [SerializeField] private int _initialChunksCount = 5;
     [SerializeField] private float _chunkLength = 10f;
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _minMoveSpeed = 2f;
+    [SerializeField] private float _maxMoveSpeed = 20f;
+    [SerializeField] private float _minGravityZ = -22f;
+    [SerializeField] private float _maxGravityZ = -2f;
 
     private readonly List<Chunk> _activeChunks = new List<Chunk>();
     private Camera _mainCamera;
@@ -63,14 +70,14 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
 
     private void MoveChunks()
     {
-        for (int i = 0; i < _activeChunks.Count; i++)
+        for (int i = _activeChunks.Count - 1; i >= 0; i--)
         {
             Chunk chunk = _activeChunks[i];
             chunk.transform.Translate(-transform.forward * _moveSpeed * Time.deltaTime);
 
             if (IsChunkBehindCamera(chunk))
             {
-                _activeChunks.Remove(chunk);
+                _activeChunks.RemoveAt(i);
                 _chunkPool.ReturnObjectToPool(chunk);
                 SpawnChunk();
             }
@@ -84,8 +91,16 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
 
     public void ChangeLevelSpeed(float amount)
     {
-        _moveSpeed = Mathf.Clamp(_moveSpeed + amount, _minMoveSpeed, float.MaxValue);
-        Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - _moveSpeed);
+        float oldMoveSpeed = _moveSpeed;
+        float newMoveSpeed = Mathf.Clamp(_moveSpeed + amount, _minMoveSpeed, _maxMoveSpeed);
+
+        if (Mathf.Approximately(oldMoveSpeed, newMoveSpeed)) { return; }
+
+        _moveSpeed = newMoveSpeed;
+
+        float newGravityZ = Mathf.Clamp(Physics.gravity.z - amount, _minGravityZ, _maxGravityZ);
+        Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, newGravityZ);
+
         CameraController.Instance.ChangeCameraFOV(amount);
     }
 

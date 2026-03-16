@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Coin : Pickup
 {
+    [SerializeField] private int _scoreValue = 10;
     protected override void OnPickup()
     {
-        Debug.Log("Coin collected!"); 
+        ScoreManager.Instance.AddScore(_scoreValue);
         Destroy(gameObject);
     }
 }

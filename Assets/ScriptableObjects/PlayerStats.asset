@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   _moveSpeed: 5
+  _stamina: 20
+  _staminaDrainRate: 1

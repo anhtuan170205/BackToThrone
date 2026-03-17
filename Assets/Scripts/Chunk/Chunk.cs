@@ -15,6 +15,7 @@ public class Chunk : MonoBehaviour
     [SerializeField] private float[] _lanes = { -2.5f, 0f, 2.5f };
 
     private List<int> _availableLanes = new List<int> { 0, 1, 2 };
+    public ChunkPool OwningPool { get; private set; }
 
     private void OnEnable()
     {
@@ -84,6 +85,11 @@ public class Chunk : MonoBehaviour
         _availableLanes.RemoveAt(randomLaneIndex);
 
         return selectedLane;
+    }
+
+    public void SetOwningPool(ChunkPool pool)
+    {
+        OwningPool = pool;
     }
 
 }

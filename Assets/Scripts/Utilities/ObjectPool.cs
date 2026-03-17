@@ -50,4 +50,9 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         instance.transform.SetParent(transform);
         _pool.Enqueue(instance);
     }
+
+    public bool HasAvailableObjects()
+    {
+        return _pool.Count > 0 || _expandable;
+    }
 }

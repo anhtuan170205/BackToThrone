@@ -7,13 +7,9 @@ public class ObstacleSpawner : SingletonMonoBehaviour<ObstacleSpawner>
     [SerializeField] private ObstaclePool[] _obstaclePools;
     [SerializeField] private bool _autoSpawn = true;
     [SerializeField] private float _spawnInterval = 2f;
-    [SerializeField] private Transform _obstacleParent;
-    [SerializeField] private int _maxObstaclesToSpawn = 20;
     [SerializeField] private float _spawnRangeMin = -3f;
     [SerializeField] private float _spawnRangeMax = 3f;
     [SerializeField] private float _spawnHeight = 5f;
-
-    private int _spawnedObstaclesCount = 0;
 
     protected override void Awake()
     {
@@ -30,7 +26,7 @@ public class ObstacleSpawner : SingletonMonoBehaviour<ObstacleSpawner>
 
     private IEnumerator SpawnObstacles()
     {
-        while (_spawnedObstaclesCount < _maxObstaclesToSpawn)
+        while (true)
         {
             SpawnObstacle();
             yield return new WaitForSeconds(_spawnInterval);
@@ -51,9 +47,6 @@ public class ObstacleSpawner : SingletonMonoBehaviour<ObstacleSpawner>
 
         obstacle.transform.position = spawnPoint;
         obstacle.transform.rotation = Random.rotation;
-        obstacle.transform.SetParent(_obstacleParent);
-
-        _spawnedObstaclesCount++;
     }
 
     private ObstaclePool GetRandomPool()

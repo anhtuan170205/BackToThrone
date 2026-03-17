@@ -15,6 +15,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
     public void AddScore(int amount)
     {
+        if (GameManager.Instance.CurrentGameState == GameState.GameOver) { return; }
         _score += amount;
         OnScoreChanged?.Invoke(_score);
     }

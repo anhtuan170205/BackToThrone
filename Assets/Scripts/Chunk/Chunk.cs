@@ -55,7 +55,7 @@ public class Chunk : MonoBehaviour
     private void SpawnCoins()
     {
         if (Random.value > _coinSpawnRate || _availableLanes.Count == 0) return;
-        int coinsToSpawn = Random.Range(0, _maxCoinsInRow);
+        int coinsToSpawn = Random.Range(3, _maxCoinsInRow);
 
         float topOfChunkZ = transform.position.z + _coinSeparationLength * 2f;
         int selectedLane = SelectLane();

@@ -335,7 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstaclePool
   _prefab: {fileID: 8370090343467876669, guid: 2b4d4f72a35a04e718b73b691404f4b6, type: 3}
   _initialPoolSize: 10
-  _expandable: 0
+  _expandable: 1
 --- !u!1 &356083720
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,7 +836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstaclePool
   _prefab: {fileID: 5440078091461004609, guid: b6616873987ef4007a33031f5682d335, type: 3}
   _initialPoolSize: 10
-  _expandable: 0
+  _expandable: 1
 --- !u!4 &598459746
 Transform:
   m_ObjectHideFlags: 0
@@ -6457,7 +6457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstaclePool
   _prefab: {fileID: 8852413591730307293, guid: 6ee4c8c9cf7d94230afeaf637b7f84ce, type: 3}
   _initialPoolSize: 10
-  _expandable: 0
+  _expandable: 1
 --- !u!1 &1563194569
 GameObject:
   m_ObjectHideFlags: 0
@@ -6789,7 +6789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstaclePool
   _prefab: {fileID: 4287463186356998519, guid: 133a4048a85e24a8f986c45e05ddd2a3, type: 3}
   _initialPoolSize: 10
-  _expandable: 0
+  _expandable: 1
 --- !u!1 &1963286319
 GameObject:
   m_ObjectHideFlags: 0
@@ -7019,7 +7019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstaclePool
   _prefab: {fileID: 2842756196443941434, guid: 4fe160544d7954f7b88f148a03fa4799, type: 3}
   _initialPoolSize: 10
-  _expandable: 0
+  _expandable: 1
 --- !u!1 &2122873208
 GameObject:
   m_ObjectHideFlags: 0

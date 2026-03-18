@@ -15,7 +15,7 @@ public class ForceReceiver : MonoBehaviour
     {
         if (_controller.isGrounded && _verticalVelocity < 0)
         {
-            _verticalVelocity = Physics.gravity.y * Time.deltaTime;
+            _verticalVelocity = -2f;
         }
         else
         {
@@ -33,5 +33,10 @@ public class ForceReceiver : MonoBehaviour
     {
         _impact = Vector3.zero;
         _verticalVelocity = 0f;
+    }
+
+    public void SetVerticalVelocity(float velocity)
+    {
+        _verticalVelocity = velocity;
     }
 }

@@ -39,4 +39,5 @@ public class PlayerStateMachine : StateMachine
             SwitchState(new PlayerJumpState(this));
         }
     }
+
 }

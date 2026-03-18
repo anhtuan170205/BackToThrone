@@ -12,8 +12,9 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
-        Vector3 movement = CalculateMovement();
-        Move(movement * StateMachine.PlayerStats.MoveSpeed, deltaTime);
+        Vector3 movement = CalculateMovement() * StateMachine.PlayerStats.MoveSpeed;
+        movement += StateMachine.ForceReceiver.Movement;
+        Move(movement, deltaTime);
     }
 
     public override void Exit()

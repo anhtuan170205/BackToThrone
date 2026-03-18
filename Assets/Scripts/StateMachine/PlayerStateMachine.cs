@@ -13,21 +13,15 @@ public class PlayerStateMachine : StateMachine
     private void Start()
     {
         SwitchState(new PlayerMoveState(this));
-        CollisionHandler.OnCollideWithHazard += HandleCollideWithHazard;
-        CollisionHandler.OnCollideWithObstacle += HandleCollideWithObstacle;
+        CollisionHandler.OnCollideWithHazard += HandleCollideWithHazardAndObstacle;
+        CollisionHandler.OnCollideWithObstacle += HandleCollideWithHazardAndObstacle;
         GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
+        InputReader.JumpEvent += HandleJump;
     }
 
-    private void HandleCollideWithHazard()
+    private void HandleCollideWithHazardAndObstacle()
     {
         SwitchState(new PlayerStumbleState(this));
-        Debug.Log("Collided with Hazard");
-    }
-
-    private void HandleCollideWithObstacle()
-    {
-        SwitchState(new PlayerStumbleState(this));
-        Debug.Log("Collided with Obstacle");
     }
 
     private void HandleGameStateChanged(GameState newState)
@@ -35,6 +29,14 @@ public class PlayerStateMachine : StateMachine
         if (newState == GameState.GameOver)
         {
             SwitchState(new PlayerLoseState(this));
+        }
+    }
+
+    private void HandleJump()
+    {
+        if (CurrentState is PlayerMoveState)
+        {
+            SwitchState(new PlayerJumpState(this));
         }
     }
 }

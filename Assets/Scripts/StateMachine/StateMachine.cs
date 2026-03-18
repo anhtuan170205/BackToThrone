@@ -3,6 +3,7 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
     private State _currentState;
+    protected State CurrentState => _currentState;
 
     private void Update()
     {

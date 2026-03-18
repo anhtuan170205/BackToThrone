@@ -192,7 +192,7 @@ MonoBehaviour:
   _applePrefab: {fileID: 973118475777937338, guid: 4ff03bfed068c4e7186230d31374de41, type: 3}
   _coinPrefab: {fileID: 2708066524611905653, guid: 85f8de219d1104722a28effe19efe2b4, type: 3}
   _propsParent: {fileID: 8650866650868548476}
-  _appleSpawnRate: 0.3
+  _appleSpawnRate: 0.4
   _coinSpawnRate: 0.5
   _coinSeparationLength: 2
   _maxCoinsInRow: 5

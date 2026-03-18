@@ -166,4 +166,9 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
 
         CameraController.Instance.ChangeCameraFOV(amount);
     }
+
+    public void IncreaseDifficulty()
+    {
+        _chunksPerCheckpoint += 10;
+    }
 }

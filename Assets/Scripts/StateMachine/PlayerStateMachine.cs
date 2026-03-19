@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerStateMachine : StateMachine
@@ -12,7 +13,6 @@ public class PlayerStateMachine : StateMachine
 
     private void Start()
     {
-        SwitchState(new PlayerMoveState(this));
         CollisionHandler.OnCollideWithHazard += HandleCollideWithHazardAndObstacle;
         CollisionHandler.OnCollideWithObstacle += HandleCollideWithHazardAndObstacle;
         GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
@@ -26,9 +26,19 @@ public class PlayerStateMachine : StateMachine
 
     private void HandleGameStateChanged(GameState newState)
     {
-        if (newState == GameState.GameOver)
+        switch (newState)
         {
-            SwitchState(new PlayerLoseState(this));
+            case GameState.MainMenu:
+                SwitchState(new PlayerIdleState(this));
+                break;
+
+            case GameState.InGame:
+                SwitchState(new PlayerMoveState(this));
+                break;
+
+            case GameState.GameOver:
+                SwitchState(new PlayerLoseState(this));
+                break;
         }
     }
 

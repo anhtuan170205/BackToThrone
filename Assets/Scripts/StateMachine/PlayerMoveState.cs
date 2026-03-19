@@ -3,11 +3,12 @@ using UnityEngine;
 public class PlayerMoveState : PlayerBaseState
 {
     private readonly int RUN_HASH = Animator.StringToHash("Run");
+    private const float CROSS_FADE_DURATION = 0.1f;
     public PlayerMoveState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Enter()
     {
-        StateMachine.Animator.Play(RUN_HASH);
+        StateMachine.Animator.CrossFade(RUN_HASH, CROSS_FADE_DURATION);
     }
 
     public override void Tick(float deltaTime)

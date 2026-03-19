@@ -17,33 +17,100 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
     [SerializeField] private float _maxChunkMoveSpeed = 20f;
     [SerializeField] private float _minGravityZ = -22f;
     [SerializeField] private float _maxGravityZ = -2f;
+    [SerializeField] private int _safeChunkCount = 5;
 
     private readonly List<Chunk> _activeChunks = new List<Chunk>();
     private Camera _mainCamera;
     private ChunkPool _lastUsedPool;
     private int _spawnedChunkCount = 0;
 
+    private bool _isMovingChunks;
+    private float _defaultChunkMoveSpeed;
+
     protected override void Awake()
     {
         base.Awake();
         _mainCamera = Camera.main;
+        _defaultChunkMoveSpeed = _chunkMoveSpeed;
     }
 
     private void Start()
     {
-        SpawnInitialChunks();
+        GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
     }
 
     private void Update()
     {
+        if (!_isMovingChunks) { return; }
         MoveChunks();
+    }
+
+    private void HandleGameStateChanged(GameState newState)
+    {
+        switch (newState)
+        {
+            case GameState.MainMenu:
+                PrepareLevel();
+                break;
+            case GameState.InGame:
+                StartGeneratingLevel();
+                break;
+            case GameState.GameOver:
+                StopGeneratingLevel();
+                break;
+        }
+    }
+
+    public void PrepareLevel()
+    {
+        StopGeneratingLevel();
+        ResetLevel();
+        _chunkMoveSpeed = _defaultChunkMoveSpeed;
+        SpawnInitialChunks();
+    }
+
+    public void StartGeneratingLevel()
+    {
+        _isMovingChunks = true;
+    }
+
+    public void StopGeneratingLevel()
+    {
+        _isMovingChunks = false;
+    }
+
+    private void ResetLevel()
+    {
+        for (int i = _activeChunks.Count - 1; i >= 0; i--)
+        {
+            Chunk chunk = _activeChunks[i];
+            if (chunk == null) { continue; }
+            ChunkPool owningPool = chunk.OwningPool;
+            if (owningPool != null)
+            {
+                owningPool.ReturnObjectToPool(chunk);
+            }
+            else
+            {
+                chunk.gameObject.SetActive(false);
+            }
+        }
+        _activeChunks.Clear();
+        _spawnedChunkCount = 0;
+        _lastUsedPool = null;
     }
 
     private void SpawnInitialChunks()
     {
         for (int i = 0; i < _visibleChunkCount; i++)
         {
-            SpawnChunk();
+            bool shouldSpawnProps = i >= _safeChunkCount;
+            SpawnChunk(shouldSpawnProps);
         }
     }
 
@@ -58,7 +125,7 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
         return lastChunk.transform.position.z + _chunkLength;
     }
 
-    private void SpawnChunk()
+    private void SpawnChunk(bool shouldSpawnProps = true)
     {
         ChunkPool selectedPool = ShouldSpawnCheckpointBool() ? GetCheckpointPool() : GetRandomAvailablePool();
         if (selectedPool == null) { return; }
@@ -66,12 +133,14 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
         Chunk newChunk = selectedPool.GetObjectFromPool();
         if (newChunk == null) { return; }
 
+
         float spawnPositionZ = CalculateSpawnPositionZ();
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
 
         newChunk.transform.position = spawnPosition;
         newChunk.transform.rotation = Quaternion.identity;
         newChunk.SetOwningPool(selectedPool);
+        newChunk.Initialize(shouldSpawnProps);
 
         _activeChunks.Add(newChunk);
         _spawnedChunkCount++;
@@ -154,6 +223,8 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
 
     public void ChangeLevelSpeed(float amount)
     {
+        if (!_isMovingChunks) { return; }
+
         float oldMoveSpeed = _chunkMoveSpeed;
         float newMoveSpeed = Mathf.Clamp(_chunkMoveSpeed + amount, _minChunkMoveSpeed, _maxChunkMoveSpeed);
 
@@ -171,4 +242,5 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
     {
         _chunksPerCheckpoint += 10;
     }
+
 }

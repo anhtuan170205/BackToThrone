@@ -5,11 +5,13 @@ using System.Collections.Generic;
 public class ObstacleSpawner : SingletonMonoBehaviour<ObstacleSpawner>
 {
     [SerializeField] private ObstaclePool[] _obstaclePools;
-    [SerializeField] private bool _autoSpawn = true;
     [SerializeField] private float _spawnInterval = 2f;
     [SerializeField] private float _spawnRangeMin = -3f;
     [SerializeField] private float _spawnRangeMax = 3f;
     [SerializeField] private float _spawnHeight = 5f;
+
+    private Coroutine _spawnCoroutine;
+    private bool _isSpawning = false;
 
     protected override void Awake()
     {
@@ -18,9 +20,43 @@ public class ObstacleSpawner : SingletonMonoBehaviour<ObstacleSpawner>
 
     private void Start()
     {
-        if (_autoSpawn)
+        GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
+    }
+
+    private void HandleGameStateChanged(GameState newState)
+    {
+        if (newState == GameState.InGame)
         {
-            StartCoroutine(SpawnObstacles());
+            StartSpawning();
+        }
+        else
+        {
+            StopSpawning();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
+    }
+
+    public void StartSpawning()
+    {
+        if (_isSpawning) return;
+
+        _isSpawning = true;
+        _spawnCoroutine = StartCoroutine(SpawnObstacles());
+    }
+
+    public void StopSpawning()
+    {
+        if (!_isSpawning) return;
+
+        _isSpawning = false;
+        if (_spawnCoroutine != null)
+        {
+            StopCoroutine(_spawnCoroutine);
+            _spawnCoroutine = null;
         }
     }
 

@@ -8,6 +8,8 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
+        if (GameManager.Instance.CurrentGameState != GameState.InGame) { return; }
+
         if (other.gameObject.CompareTag("Obstacle"))
         {
             OnCollideWithObstacle?.Invoke();
@@ -16,6 +18,8 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
+        if (GameManager.Instance.CurrentGameState != GameState.InGame) { return; }
+        
         if (other.gameObject.CompareTag("Hazard"))
         {
             OnCollideWithHazard?.Invoke();

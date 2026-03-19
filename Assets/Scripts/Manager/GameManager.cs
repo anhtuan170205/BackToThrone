@@ -17,6 +17,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         StaminaManager.Instance.OnStaminaDepleted += HandleGameOver;
     }
 
+    private void OnDestroy()
+    {
+        StaminaManager.Instance.OnStaminaDepleted -= HandleGameOver;
+    }
+
     public void SetGameState(GameState newState)
     {
         _currentGameState = newState;
@@ -29,9 +34,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     }
 
     public void ResetGame()
+    {   
+        SetGameState(GameState.MainMenu);
+    }
+
+    public void StartGame()
     {
         SetGameState(GameState.InGame);
-        ScoreManager.Instance.ResetScore();
-        StaminaManager.Instance.ResetStamina();
     }
 }

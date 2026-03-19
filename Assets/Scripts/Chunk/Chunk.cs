@@ -17,8 +17,13 @@ public class Chunk : MonoBehaviour
     private List<int> _availableLanes = new List<int> { 0, 1, 2 };
     public ChunkPool OwningPool { get; private set; }
 
-    private void OnEnable()
+    public void Initialize(bool shouldSpawnProps)
     {
+        DespawnAllProps();
+        _availableLanes = new List<int> { 0, 1, 2 };
+
+        if (!shouldSpawnProps) { return; }
+
         SpawnFences();
         SpawnApple();
         SpawnCoins();

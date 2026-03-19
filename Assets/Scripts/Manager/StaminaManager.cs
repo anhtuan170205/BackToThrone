@@ -32,6 +32,7 @@ public class StaminaManager : SingletonMonoBehaviour<StaminaManager>
 
     public void AddStamina(float amount)
     {
+        if (GameManager.Instance.CurrentGameState != GameState.InGame) return;
         _currentStamina += amount;
         OnStaminaChanged?.Invoke(_currentStamina);
     } 

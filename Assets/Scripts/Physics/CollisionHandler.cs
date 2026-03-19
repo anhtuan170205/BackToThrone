@@ -8,13 +8,17 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            OnCollideWithObstacle?.Invoke();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
         if (other.gameObject.CompareTag("Hazard"))
         {
             OnCollideWithHazard?.Invoke();
-        }
-        else if (other.gameObject.CompareTag("Obstacle"))
-        {
-            OnCollideWithObstacle?.Invoke();
         }
     }
 }

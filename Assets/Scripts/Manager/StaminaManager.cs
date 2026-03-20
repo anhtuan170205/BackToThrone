@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class StaminaManager : SingletonMonoBehaviour<StaminaManager>
 {
-    [SerializeField] private PlayerStats _playerStats;
-    private float _initialStamina => _playerStats.Stamina;
-    private float _staminaDrainRate => _playerStats.StaminaDrainRate;
+    [SerializeField] private PlayerStatProvider _playerStatProvider;
     private float _currentStamina;
     public float CurrentStamina => _currentStamina;
     private bool _isDraining = false;
@@ -34,7 +32,7 @@ public class StaminaManager : SingletonMonoBehaviour<StaminaManager>
 
         if (_currentStamina > 0)
         {
-            AddStamina(-_staminaDrainRate * Time.deltaTime);
+            AddStamina(-Time.deltaTime);
         }
         else
         {
@@ -65,13 +63,13 @@ public class StaminaManager : SingletonMonoBehaviour<StaminaManager>
         if (GameManager.Instance.CurrentGameState != GameState.InGame) return;
 
         _currentStamina += amount;
-        _currentStamina = Mathf.Clamp(_currentStamina, 0, _initialStamina);
+        _currentStamina = Mathf.Clamp(_currentStamina, 0, _playerStatProvider.MaxStamina);
         OnStaminaChanged?.Invoke(_currentStamina);
     } 
 
     public void ResetStamina()
     {
-        _currentStamina = _initialStamina;
+        _currentStamina = _playerStatProvider.MaxStamina;
         OnStaminaChanged?.Invoke(_currentStamina);
     }   
 

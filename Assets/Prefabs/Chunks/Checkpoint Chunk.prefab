@@ -105,7 +105,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '+5
+  m_text: '+++
 
 '
   m_isRightToLeft: 0
@@ -426,7 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03376147bdc8c413aa38448e2a0df4ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  _playerStats: {fileID: 11400000, guid: 9397ba11db98b4b8787a940bcada0a0f, type: 2}
 --- !u!65 &5475506435057209519
 BoxCollider:
   m_ObjectHideFlags: 0

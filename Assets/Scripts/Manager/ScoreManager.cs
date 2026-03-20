@@ -3,12 +3,17 @@ using UnityEngine;
 
 public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 {
-    private int _score;
-    public int Score => _score;
+    [SerializeField] private PlayerStatProvider _playerStatProvider;
+    private int _runScore;
+    private int _totalScore;
+    public int RunScore => _runScore;
+    public int TotalScore => _totalScore;
 
     private bool _canScore = false;
+    private bool _rewardGiven = false;
     
-    public event Action<int> OnScoreChanged;
+    public event Action<int> OnRunScoreChanged;
+    public event Action<int> OnTotalScoreChanged;
 
     protected override void Awake()
     {
@@ -30,7 +35,6 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         switch (newState)
         {
             case GameState.MainMenu:
-                ResetScore();
                 _canScore = false;
                 break;
             case GameState.InGame:
@@ -38,6 +42,11 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
                 break;
             case GameState.GameOver:
                 _canScore = false;
+                if (!_rewardGiven)
+                {
+                    AddToTotalScore(_runScore);
+                    _rewardGiven = true;
+                }
                 break;
         }
     }
@@ -45,15 +54,31 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     public void AddScore(int amount)
     {
         if (!_canScore) { return; }
-        
-        _score += amount;
-        OnScoreChanged?.Invoke(_score);
+        if (_playerStatProvider == null) { return; }
+       
+        _runScore += Mathf.RoundToInt(amount * _playerStatProvider.ScoreMultiplier);
+        OnRunScoreChanged?.Invoke(_runScore);
     }
 
-    public void ResetScore()
+    public void ResetRunScore()
     {
-        _score = 0;
-        OnScoreChanged?.Invoke(_score);
+        _runScore = 0;
+        OnRunScoreChanged?.Invoke(_runScore);
     }
 
+    public void AddToTotalScore(int amount)
+    {
+        _totalScore += amount;
+        OnTotalScoreChanged?.Invoke(_totalScore);
+    }
+
+    public bool TrySpendTotalScore(int cost)
+    {
+        if (cost <= 0) { return false; }
+        if (cost > _totalScore) { return false; }
+
+        _totalScore -= cost;
+        OnTotalScoreChanged?.Invoke(_totalScore);
+        return true;
+    }
 }

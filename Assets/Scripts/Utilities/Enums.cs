@@ -6,3 +6,12 @@ public enum GameState
     InGame,
 	GameOver
 }
+
+public enum ShopItemType
+{
+	MaxStamina,
+	StaminaRegen,
+	MoveSpeed,
+	ScoreMultiplier,
+	PickupRange
+}

@@ -10,12 +10,12 @@ public class PlayerJumpState : PlayerBaseState
     public override void Enter()
     {
         StateMachine.Animator.CrossFade(JUMP_HASH, CROSS_FADE_DURATION);
-        StateMachine.ForceReceiver.SetVerticalVelocity(StateMachine.PlayerStats.JumpForce);
+        StateMachine.ForceReceiver.SetVerticalVelocity(StateMachine.PlayerStatProvider.JumpForce);
     }
 
     public override void Tick(float deltaTime)
     {
-        Vector3 movement = CalculateMovement() * StateMachine.PlayerStats.MoveSpeed;
+        Vector3 movement = CalculateMovement() * StateMachine.PlayerStatProvider.MoveSpeed;
         movement += StateMachine.ForceReceiver.Movement;
         Move(movement, deltaTime);
 

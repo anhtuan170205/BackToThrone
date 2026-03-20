@@ -6,26 +6,36 @@ public class UIDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject _menuPanel;
     [SerializeField] private GameObject _hudPanel;
-    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private GameObject _gameOverPanel;
+    [SerializeField] private TextMeshProUGUI _runScoreText;
     [SerializeField] private TextMeshProUGUI _timeText;
-    [SerializeField] private TextMeshProUGUI _gameOverText;
+
+    [SerializeField] private TextMeshProUGUI _menuTotalScoreText;
+
     private void Start()
     {
-        ScoreManager.Instance.OnScoreChanged += HandleScoreDisplay;
+        ScoreManager.Instance.OnRunScoreChanged += HandleRunScoreDisplay;
+        ScoreManager.Instance.OnTotalScoreChanged += HandleTotalScoreDisplay;
         StaminaManager.Instance.OnStaminaChanged += HandleStaminaDisplay;
         GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
     }
 
     private void OnDestroy()
     {
-        ScoreManager.Instance.OnScoreChanged -= HandleScoreDisplay;
+        ScoreManager.Instance.OnRunScoreChanged -= HandleRunScoreDisplay;
+        ScoreManager.Instance.OnTotalScoreChanged -= HandleTotalScoreDisplay;
         StaminaManager.Instance.OnStaminaChanged -= HandleStaminaDisplay;
         GameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
     }
 
-    private void HandleScoreDisplay(int newScore)
+    private void HandleRunScoreDisplay(int newRunScore)
     {
-        _scoreText.text = newScore.ToString("000");
+        _runScoreText.text = newRunScore.ToString("000");
+    }
+
+    private void HandleTotalScoreDisplay(int newTotalScore)
+    {
+        _menuTotalScoreText.text = newTotalScore.ToString("000");
     }
 
     private void HandleStaminaDisplay(float newStamina)
@@ -40,21 +50,21 @@ public class UIDisplay : MonoBehaviour
             case GameState.MainMenu:
                 _menuPanel.SetActive(true);
                 _hudPanel.SetActive(false);
-                _gameOverText.gameObject.SetActive(false);
+                _gameOverPanel.SetActive(false);
                 Time.timeScale = 1f;
                 break;
 
             case GameState.InGame:
                 _menuPanel.SetActive(false);
                 _hudPanel.SetActive(true);
-                _gameOverText.gameObject.SetActive(false);
+                _gameOverPanel.SetActive(false);
                 Time.timeScale = 1f;
                 break;
 
             case GameState.GameOver:
                 _menuPanel.SetActive(false);
-                _hudPanel.SetActive(true);
-                _gameOverText.gameObject.SetActive(true);
+                _hudPanel.SetActive(false);
+                _gameOverPanel.SetActive(true);
                 Time.timeScale = 0.1f;
                 break;
         }

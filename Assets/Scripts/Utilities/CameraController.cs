@@ -2,50 +2,96 @@ using UnityEngine;
 using System.Collections;
 using Unity.Cinemachine;
 
-[RequireComponent(typeof(CinemachineCamera))]
-public class CameraController : SingletonMonoBehaviour<CameraController>
+public class CameraController : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem speedUpEffect;
-    [SerializeField] private float minFOV = 20f;
-    [SerializeField] private float maxFOV = 120f;
-    [SerializeField] private float zoomDuration = 1f;
-    [SerializeField] private float zoomSpeedMultiplier = 5f;
+    [SerializeField] private CinemachineCamera _menuCamera;
+    [SerializeField] private CinemachineCamera _inGameCamera;
+    [SerializeField] private CinemachineCamera _transitionCamera;
+    [SerializeField] private ParticleSystem _speedUpEffect;
+    [SerializeField] private float _minFOV = 20f;
+    [SerializeField] private float _maxFOV = 80f;
+    [SerializeField] private float _fovSmoothSpeed = 5f;
+    [SerializeField] private float _zoomStep = 5f;
+    [SerializeField] private float _transitionDuration = 0.3f;
 
-    private CinemachineCamera _cinemachineCamera;
+    [SerializeField] private int _activePriority = 10;
+    [SerializeField] private int _inactivePriority = 0;
 
-    protected override void Awake()
+    private float _targetFOV;
+    private Coroutine _transitionCoroutine;
+
+    private void Start()
     {
-        base.Awake();
-        _cinemachineCamera = GetComponent<CinemachineCamera>();
+        GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
+        LevelGenerator.Instance.OnSpeedUp += HandleSpeedUp;
+
+        _targetFOV = _inGameCamera.Lens.FieldOfView;
     }
 
-    public void ChangeCameraFOV(float amount)
+    private void OnDestroy()
     {
-        StopAllCoroutines();
-        StartCoroutine(ChangeFOVRoutine(amount));
+        GameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
+    }
 
-        if (amount > 0)
+    private void LateUpdate()
+    {
+        float currentFOV = _inGameCamera.Lens.FieldOfView;
+        float newFOV = Mathf.Lerp(currentFOV, _targetFOV, _fovSmoothSpeed * Time.deltaTime);
+
+        _inGameCamera.Lens.FieldOfView = Mathf.Clamp(newFOV, _minFOV, _maxFOV);
+    }
+
+    private void HandleGameStateChanged(GameState newState)
+    {
+        switch (newState)
         {
-            speedUpEffect.Play();
+            case GameState.MainMenu:
+                ActivateCamera(_menuCamera);
+                break;
+            case GameState.InGame:
+                StartTransitionToInGame();
+                break;
+            case GameState.GameOver:
+                ActivateCamera(_menuCamera);
+                break;
         }
     }
 
-    private IEnumerator ChangeFOVRoutine(float amount)
+    private void ActivateCamera(CinemachineCamera camera)
     {
-        float startFOV = _cinemachineCamera.Lens.FieldOfView;
-        float targetFOV = Mathf.Clamp(startFOV + amount * zoomSpeedMultiplier, minFOV, maxFOV);
+        _menuCamera.Priority = _inactivePriority;
+        _inGameCamera.Priority = _inactivePriority;
+        _transitionCamera.Priority = _inactivePriority;
 
-        float elapsedTime = 0f;
+        camera.Priority = _activePriority;
+    }
 
-        while (elapsedTime < zoomDuration)
+    private void StartTransitionToInGame()
+    {
+        _transitionCoroutine = StartCoroutine(TransitionCoroutine());
+    }
+
+    private IEnumerator TransitionCoroutine()
+    {
+        ActivateCamera(_transitionCamera);
+        yield return new WaitForSeconds(_transitionDuration);
+        ActivateCamera(_inGameCamera);
+        _transitionCoroutine = null;
+    }
+
+    private void HandleSpeedUp(float amount)
+    {
+        if (!_speedUpEffect.isPlaying && amount > 0f)
         {
-            float t = elapsedTime / zoomDuration;
-            elapsedTime += Time.deltaTime;
-
-            _cinemachineCamera.Lens.FieldOfView = Mathf.Lerp(startFOV, targetFOV, t);
-            yield return null;
+            _speedUpEffect.Play();
         }
 
-        _cinemachineCamera.Lens.FieldOfView = targetFOV;
+        _targetFOV += amount * _zoomStep;
+        _targetFOV = Mathf.Clamp(_targetFOV, _minFOV, _maxFOV);
+    }
+
+    private void ResetFOV()
+    {
+        _targetFOV = _minFOV;
     }
 }

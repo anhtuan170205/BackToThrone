@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
 {
@@ -18,8 +20,9 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
     [SerializeField] private float _minGravityZ = -22f;
     [SerializeField] private float _maxGravityZ = -2f;
     [SerializeField] private int _safeChunkCount = 5;
-
     private readonly List<Chunk> _activeChunks = new List<Chunk>();
+
+    public event Action<float> OnSpeedUp;
     private Camera _mainCamera;
     private ChunkPool _lastUsedPool;
     private int _spawnedChunkCount = 0;
@@ -235,7 +238,7 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
         float newGravityZ = Mathf.Clamp(Physics.gravity.z - amount, _minGravityZ, _maxGravityZ);
         Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, newGravityZ);
 
-        CameraController.Instance.ChangeCameraFOV(amount);
+        OnSpeedUp?.Invoke(amount);
     }
 
     public void IncreaseDifficulty()

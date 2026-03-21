@@ -8,6 +8,7 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
 
     private Dictionary<ShopItemType, ShopUpgradeData> _upgradeDictionary;
     public event Action<ShopItemType> OnUpgradePurchased;
+    public event Action OnShopDataChanged;
 
     protected override void Awake()
     {
@@ -54,6 +55,8 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
 
         data.TryUpgrade();
         OnUpgradePurchased?.Invoke(item);
+        OnShopDataChanged?.Invoke();
+        
         return true;
     }
 }

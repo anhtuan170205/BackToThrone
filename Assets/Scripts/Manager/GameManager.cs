@@ -26,6 +26,17 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         _currentGameState = newState;
         OnGameStateChanged?.Invoke(_currentGameState);
+
+        switch (_currentGameState)
+        {
+            case GameState.MainMenu:
+            case GameState.InGame:
+                Time.timeScale = 1f;
+                break;
+            case GameState.GameOver:
+                Time.timeScale = 0.1f;
+                break;
+        }
     }
 
     private void HandleGameOver()
@@ -42,4 +53,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         SetGameState(GameState.InGame);
     }
+
+    public void RestartGame()
+    {
+        ScoreManager.Instance.ResetRunScore();
+        StaminaManager.Instance.ResetStamina();
+        StartGame();
+    }
+
 }

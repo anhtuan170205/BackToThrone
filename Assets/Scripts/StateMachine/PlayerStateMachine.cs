@@ -29,10 +29,12 @@ public class PlayerStateMachine : StateMachine
         switch (newState)
         {
             case GameState.MainMenu:
+                transform.position = Vector3.zero;
                 SwitchState(new PlayerIdleState(this));
                 break;
 
             case GameState.InGame:
+                transform.position = Vector3.zero;
                 SwitchState(new PlayerMoveState(this));
                 break;
 

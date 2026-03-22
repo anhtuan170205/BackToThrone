@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Pickup : MonoBehaviour
 {
-    private const string PLAYER_TAG = "Player";
+    private const string PICKUP_TAG = "Pickup";
     [SerializeField] private float _rotationSpeed = 100f;
 
     private void Update()
@@ -12,7 +12,7 @@ public abstract class Pickup : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag(PLAYER_TAG)) return;
+        if (!other.CompareTag(PICKUP_TAG)) return;
         OnPickup();
     }
 

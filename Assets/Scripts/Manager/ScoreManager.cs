@@ -39,6 +39,8 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
                 break;
             case GameState.InGame:
                 _canScore = true;
+                _rewardGiven = false;
+                ResetRunScore();
                 break;
             case GameState.GameOver:
                 _canScore = false;

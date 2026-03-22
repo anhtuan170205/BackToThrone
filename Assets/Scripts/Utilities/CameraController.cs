@@ -53,6 +53,7 @@ public class CameraController : MonoBehaviour
                 break;
             case GameState.GameOver:
                 ActivateCamera(_menuCamera);
+                ResetFOV();
                 break;
         }
     }

@@ -41,7 +41,7 @@ public class PlayerStatProvider : MonoBehaviour
     {
         get
         {
-            return ShopManager.Instance.GetBonus(ShopItemType.PickupRange);
+            return 0.5f + ShopManager.Instance.GetBonus(ShopItemType.PickupRange);
         }
     }
 

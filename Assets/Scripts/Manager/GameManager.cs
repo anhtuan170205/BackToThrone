@@ -54,11 +54,4 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         SetGameState(GameState.InGame);
     }
 
-    public void RestartGame()
-    {
-        ScoreManager.Instance.ResetRunScore();
-        StaminaManager.Instance.ResetStamina();
-        StartGame();
-    }
-
 }

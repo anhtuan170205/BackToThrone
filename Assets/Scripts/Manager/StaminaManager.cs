@@ -46,10 +46,10 @@ public class StaminaManager : SingletonMonoBehaviour<StaminaManager>
         switch (newState)
         {
             case GameState.MainMenu:
-                ResetStamina();
                 StopDraining();
                 break;
             case GameState.InGame:
+                ResetStamina();
                 StartDraining();
                 break;
             case GameState.GameOver:
@@ -70,6 +70,7 @@ public class StaminaManager : SingletonMonoBehaviour<StaminaManager>
     public void ResetStamina()
     {
         _currentStamina = _playerStatProvider.MaxStamina;
+        Debug.Log($"Stamina reset to {_currentStamina}");
         OnStaminaChanged?.Invoke(_currentStamina);
     }   
 

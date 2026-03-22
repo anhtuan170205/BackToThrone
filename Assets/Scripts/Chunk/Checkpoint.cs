@@ -7,12 +7,8 @@ public class Checkpoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag(PLAYER_TAG)) return;
-        Debug.Log("Checkpoint reached!");
 
-        PlayerStatProvider playerStatProvider = other.GetComponent<PlayerStatProvider>();
-        if (playerStatProvider == null) return;
-
-        StaminaManager.Instance.AddStamina(playerStatProvider.StaminaBoostAmount);
+        StaminaManager.Instance.AddStamina(5f);
         LevelGenerator.Instance.IncreaseDifficulty();
     }
 }

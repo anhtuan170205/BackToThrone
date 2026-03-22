@@ -21,14 +21,6 @@ public class PlayerStatProvider : MonoBehaviour
         }
     }
 
-    public float StaminaBoostAmount
-    {
-        get
-        {
-            return _baseStats.StaminaBoostAmount + ShopManager.Instance.GetBonus(ShopItemType.StaminaRegen);
-        }
-    }
-
     public float ScoreMultiplier
     {
         get

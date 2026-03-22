@@ -70,7 +70,6 @@ public class StaminaManager : SingletonMonoBehaviour<StaminaManager>
     public void ResetStamina()
     {
         _currentStamina = _playerStatProvider.MaxStamina;
-        Debug.Log($"Stamina reset to {_currentStamina}");
         OnStaminaChanged?.Invoke(_currentStamina);
     }   
 

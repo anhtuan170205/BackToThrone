@@ -7,6 +7,9 @@ public class ShopUpgradeData
     [Tooltip("The type of upgrade this data represents.")]
     [SerializeField] private ShopItemType _item;
 
+    [Tooltip("Display name for the upgrade.")]
+    [SerializeField] private string _itemName;
+
     [Tooltip("Current level of the upgrade.")]
     [SerializeField] private int _level;
 
@@ -25,6 +28,8 @@ public class ShopUpgradeData
     [SerializeField] private float _valuePerLevel = 1f;
 
     public ShopItemType Item => _item;
+
+    public string ItemName => _itemName;
     public int Level => _level; 
     public int MaxLevel => _maxLevel;
     public bool IsMaxLevel => _level >= _maxLevel;

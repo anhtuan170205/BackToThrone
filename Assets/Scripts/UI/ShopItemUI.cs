@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class ShopItemUI : MonoBehaviour
 {
     [SerializeField] private ShopItemType _itemType;
+    [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _levelText;
     [SerializeField] private TextMeshProUGUI _costText;
-    [SerializeField] private TextMeshProUGUI _bonusText;
     [SerializeField] private Button _buyButton;
     [SerializeField] private TextMeshProUGUI _buyButtonText;
 
@@ -28,10 +28,11 @@ public class ShopItemUI : MonoBehaviour
         int cost = ShopManager.Instance.GetCost(_itemType);
         float bonus = ShopManager.Instance.GetBonus(_itemType);
         bool isMaxLevel = ShopManager.Instance.IsMaxLevel(_itemType);
+        string itemName = ShopManager.Instance.GetItemName(_itemType);
         int totalScore = ScoreManager.Instance.TotalScore;
 
         _levelText.text = $"Lv. {level}";
-        _bonusText.text = $"+{bonus:F1}%";
+        _nameText.text = itemName;
 
         if (isMaxLevel)
         {

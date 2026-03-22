@@ -10,7 +10,6 @@ public enum GameState
 public enum ShopItemType
 {
 	MaxStamina,
-	StaminaRegen,
 	MoveSpeed,
 	ScoreMultiplier,
 	PickupRange

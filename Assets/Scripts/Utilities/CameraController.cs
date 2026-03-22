@@ -93,6 +93,6 @@ public class CameraController : MonoBehaviour
 
     private void ResetFOV()
     {
-        _targetFOV = _minFOV;
+        _targetFOV = _minFOV + (_maxFOV - _minFOV) / 2f;
     }
 }

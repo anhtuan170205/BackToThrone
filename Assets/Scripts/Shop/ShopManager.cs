@@ -45,6 +45,12 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
         return data.IsMaxLevel;
     }
 
+    public string GetItemName(ShopItemType item)
+    {
+        if (!_upgradeDictionary.TryGetValue(item, out var data)) { return ""; }
+        return data.ItemName;
+    }
+
     public bool TryBuy(ShopItemType item)
     {
         if (!_upgradeDictionary.TryGetValue(item, out var data)) { return false; }

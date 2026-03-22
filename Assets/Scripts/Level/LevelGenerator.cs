@@ -73,6 +73,7 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
     {
         StopGeneratingLevel();
         ResetLevel();
+        ResetDifficulty();
         _chunkMoveSpeed = _defaultChunkMoveSpeed;
         SpawnInitialChunks();
     }
@@ -244,6 +245,11 @@ public class LevelGenerator : SingletonMonoBehaviour<LevelGenerator>
     public void IncreaseDifficulty()
     {
         _chunksPerCheckpoint += 10;
+    }
+
+    public void ResetDifficulty()
+    {
+        _chunksPerCheckpoint = 10;
     }
 
 }

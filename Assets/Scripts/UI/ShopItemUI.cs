@@ -52,7 +52,6 @@ public class ShopItemUI : MonoBehaviour
     {
         if (ShopManager.Instance.TryBuy(_itemType))
         {
-            transform.localScale = Vector3.one * 1.2f;
             Refresh();
         }
     }

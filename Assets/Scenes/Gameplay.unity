@@ -1296,8 +1296,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1463,8 +1463,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1634,8 +1634,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2013,7 +2013,7 @@ MonoBehaviour:
   - {fileID: 2092323359}
   - {fileID: 1496184337}
   - {fileID: 598459745}
-  _spawnInterval: 2
+  _spawnInterval: 1.5
   _spawnRangeMin: -3
   _spawnRangeMax: 3
   _spawnHeight: 5
@@ -2453,8 +2453,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3221,8 +3221,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3327,7 +3327,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b7501a20c06ef20469c1419fea37f021, type: 3}
   - {fileID: 8300000, guid: a78303900de031545bfe54fdf32f9c69, type: 3}
   _coinPickupClip: {fileID: 8300000, guid: 97f0b1cf878b74f1195eb9bd899f0b6a, type: 3}
-  _rockCollisionClip: {fileID: 8300000, guid: f27683766d07b4bfca1193533f25f22c, type: 3}
+  _rockCollisionClip: {fileID: 8300000, guid: b025affaac4800d46a478597f6621056, type: 3}
   _footstepClip: {fileID: 8300000, guid: 8adca921b036f489792cd37c33d176e9, type: 3}
   _jumpClip: {fileID: 8300000, guid: 38b58ddd8d00b4d2ca5429d9167e86ad, type: 3}
   _speedUpClip: {fileID: 8300000, guid: 82afd952c45374d2082c3d6d80596a07, type: 3}
@@ -3611,8 +3611,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3747,8 +3747,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3883,8 +3883,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4081,10 +4081,9 @@ GameObject:
   m_Component:
   - component: {fileID: 799633092}
   - component: {fileID: 799633091}
-  - component: {fileID: 799633093}
   m_Layer: 0
-  m_Name: ObstaclesDeactivator
-  m_TagString: Untagged
+  m_Name: ObstaclesCollector
+  m_TagString: Void
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4125,18 +4124,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 417949535}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &799633093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 799633090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca0e6c3a2ed8143d58a39c4da832e196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObstacleDestroyer
 --- !u!1 &822245500
 GameObject:
   m_ObjectHideFlags: 0
@@ -4221,8 +4208,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4406,8 +4393,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4496,7 +4483,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '000
+  m_text: '00000
 
 '
   m_isRightToLeft: 0
@@ -4525,8 +4512,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4592,7 +4579,7 @@ RectTransform:
   m_Father: {fileID: 226751684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.1, y: 0.1}
+  m_AnchorMax: {x: 0.15, y: 0.1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
@@ -4850,8 +4837,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10438,34 +10425,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopManager
   _upgrades:
-  - _item: 1
-    _itemName: Move Speed
-    _level: 0
-    _maxLevel: 20
-    _baseCost: 500
-    _costMultiplier: 1000
-    _valuePerLevel: 0.5
-  - _item: 0
-    _itemName: Max Stamina
-    _level: 0
-    _maxLevel: 20
-    _baseCost: 200
-    _costMultiplier: 100
-    _valuePerLevel: 5
-  - _item: 2
-    _itemName: Score Multiplier
-    _level: 0
-    _maxLevel: 10
-    _baseCost: 1000
-    _costMultiplier: 2000
-    _valuePerLevel: 0.1
-  - _item: 3
-    _itemName: Pickup Range
-    _level: 0
-    _maxLevel: 10
-    _baseCost: 1000
-    _costMultiplier: 1000
-    _valuePerLevel: 0.1
+  - {fileID: 11400000, guid: 030c21e548caf469b9dec547079444be, type: 2}
+  - {fileID: 11400000, guid: d9e96183c0ab54fc3821dc2f5f09da04, type: 2}
+  - {fileID: 11400000, guid: 897bc7d6d9ac2458da39b14fed1f6c4a, type: 2}
 --- !u!4 &1323179867
 Transform:
   m_ObjectHideFlags: 0
@@ -10596,8 +10558,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10813,7 +10775,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   _playerStatProvider: {fileID: 1586239144}
-  _totalScore: 10000
 --- !u!1 &1496184335
 GameObject:
   m_ObjectHideFlags: 0
@@ -16823,8 +16784,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

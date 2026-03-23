@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class ShopUpgradeData
+[CreateAssetMenu(fileName = "ShopUpgradeData", menuName = "Scriptable Objects/ShopUpgradeData", order = 1)]
+public class ShopUpgradeDataSO : ScriptableObject
 {
     [Tooltip("The type of upgrade this data represents.")]
     [SerializeField] private ShopItemType _item;

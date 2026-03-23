@@ -5,7 +5,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 {
     [SerializeField] private PlayerStatProvider _playerStatProvider;
     private int _runScore;
-    [SerializeField] private int _totalScore;
+    private int _totalScore;
     public int RunScore => _runScore;
     public int TotalScore => _totalScore;
 

@@ -6,6 +6,16 @@ public class Obstacle : MonoBehaviour
 	[SerializeField] private ParticleSystem _explosionEffect;
 
 	public ObstaclePool OwningPool { get; private set; }
+	
+	private void Start()
+	{
+		GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
+	}
+
+	private void OnDestroy()
+	{
+		GameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
+	}
 
 	private void OnEnable()
 	{
@@ -13,12 +23,6 @@ public class Obstacle : MonoBehaviour
 		{
 			_collider.enabled = true;
 		}
-		GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
-	}
-
-	private void OnDisable()
-	{
-		GameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
 	}
 
 	public void SetOwningPool(ObstaclePool pool)
@@ -51,11 +55,24 @@ public class Obstacle : MonoBehaviour
 			Explode();
 			AudioManager.Instance.PlayExplosionSfx();
 		}
+
+		if (collision.gameObject.CompareTag("Void"))
+		{
+			ReturnToPool();
+		}
 	}
 
 	private void HandleGameStateChanged(GameState newState)
 	{
-		if (newState != GameState.InGame)
+		if (newState == GameState.GameOver)
+		{
+			ReturnToPool();
+		}
+	}
+
+	private void Update()
+	{
+		if (transform.position.z < Camera.main.transform.position.z - 10f)
 		{
 			ReturnToPool();
 		}

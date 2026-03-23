@@ -169,7 +169,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         PlaySfx(_speedUpClip, volume);
     }
 
-    public void PlayExplosionSfx(float volume = 1f)
+    public void PlayExplosionSfx(float volume = 0.5f)
     {
         PlaySfx(_explosionClip, volume);
     }

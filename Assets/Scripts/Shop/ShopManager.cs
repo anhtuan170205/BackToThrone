@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShopManager : SingletonMonoBehaviour<ShopManager>
 {
-    [SerializeField] private ShopUpgradeData[] _upgrades;
+    [SerializeField] private ShopUpgradeDataSO[] _upgrades;
 
-    private Dictionary<ShopItemType, ShopUpgradeData> _upgradeDictionary;
+    private Dictionary<ShopItemType, ShopUpgradeDataSO> _upgradeDictionary;
     public event Action<ShopItemType> OnUpgradePurchased;
     public event Action OnShopDataChanged;
 
@@ -14,7 +14,7 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
     {
         base.Awake();
 
-        _upgradeDictionary = new Dictionary<ShopItemType, ShopUpgradeData>();
+        _upgradeDictionary = new Dictionary<ShopItemType, ShopUpgradeDataSO>();
         foreach (var upgrade in _upgrades)
         {
             _upgradeDictionary.Add(upgrade.Item, upgrade);

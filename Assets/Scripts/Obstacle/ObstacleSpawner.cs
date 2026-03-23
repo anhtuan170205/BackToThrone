@@ -79,8 +79,10 @@ public class ObstacleSpawner : SingletonMonoBehaviour<ObstacleSpawner>
         Obstacle obstacle = selectedPool.GetObjectFromPool();
         if (obstacle == null) { return; }
 
+
         Vector3 spawnPoint = GetRandomSpawnPoint();
 
+        obstacle.SetOwningPool(selectedPool);
         obstacle.transform.position = spawnPoint;
         obstacle.transform.rotation = Random.rotation;
     }

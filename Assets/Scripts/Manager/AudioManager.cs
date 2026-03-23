@@ -3,16 +3,31 @@ using System.Collections;
 
 public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
+    [Header("Background Music")]
     [SerializeField] private AudioClip[] _backgroundMusicClips;
+
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip _coinPickupClip;
+    [SerializeField] private AudioClip _rockCollisionClip;
+    [SerializeField] private AudioClip _footstepClip;
+    [SerializeField] private AudioClip _jumpClip;
+    [SerializeField] private AudioClip _speedUpClip;
+    [SerializeField] private AudioClip _explosionClip;
+    [SerializeField] private AudioClip _checkpointClip;
+
+    [Header("Audio Sources")]
     [SerializeField] private AudioSource _sourceA;
     [SerializeField] private AudioSource _sourceB;
+    [SerializeField] private AudioSource _loopSource;
 
+    [Header("Volume Settings")]
     [Range(0f, 1f)]
     [SerializeField] private float _masterVolume = 1f;
     [SerializeField] private float _crossfadeDuration = 2f;
 
     private AudioSource _activeSource;
     private AudioSource _inactiveSource;
+    
 
     private Coroutine _musicCoroutine;
     private int _lastClipIndex = -1;
@@ -106,5 +121,61 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     {
         _activeSource.Stop();
         _inactiveSource.Stop();
+    }
+
+    public void PlaySfx(AudioClip clip, float volume = 1f, bool loop = false)
+    {
+        if (clip == null) return;
+        if (loop)
+        {
+            _loopSource.clip = clip;
+            _loopSource.volume = volume;
+            _loopSource.loop = true;
+            _loopSource.Play();
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, volume);
+        }
+    }
+
+    public void PlayCoinPickupSfx(float volume = 1f)
+    {
+        PlaySfx(_coinPickupClip, volume);
+    }
+
+    public void PlayRockCollisionSfx(float volume = 1f)
+    {
+        PlaySfx(_rockCollisionClip, volume);
+    }
+
+    public void PlayFootstepSfx(float volume = 0.25f)
+    {
+        PlaySfx(_footstepClip, volume, true);
+    }
+
+    public void StopFootstepSfx()
+    {
+        _loopSource.Stop();
+    }
+
+    public void PlayJumpSfx(float volume = 10f)
+    {
+        PlaySfx(_jumpClip, volume);
+    }
+
+    public void PlaySpeedUpSfx(float volume = 1f)
+    {
+        PlaySfx(_speedUpClip, volume);
+    }
+
+    public void PlayExplosionSfx(float volume = 1f)
+    {
+        PlaySfx(_explosionClip, volume);
+    }
+
+    public void PlayCheckpointSfx(float volume = 1f)
+    {
+        PlaySfx(_checkpointClip, volume);
     }
 }

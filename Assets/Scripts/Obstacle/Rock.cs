@@ -12,6 +12,7 @@ public class Rock : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, Camera.main.transform.position);
         float shakeIntensity = Mathf.Min(1f / distanceToPlayer * _shakeMultiplier, 1f);
 
+        AudioManager.Instance.PlayRockCollisionSfx(shakeIntensity);
         _impulseSource.GenerateImpulse(shakeIntensity);
     }
 }

@@ -12,5 +12,4 @@ public enum ShopItemType
 	MaxStamina,
 	MoveSpeed,
 	ScoreMultiplier,
-	PickupRange
 }

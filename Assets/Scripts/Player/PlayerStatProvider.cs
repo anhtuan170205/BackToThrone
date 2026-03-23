@@ -29,13 +29,5 @@ public class PlayerStatProvider : MonoBehaviour
         }
     }
 
-    public float PickupRange
-    {
-        get
-        {
-            return 0.5f + ShopManager.Instance.GetBonus(ShopItemType.PickupRange);
-        }
-    }
-
     public float JumpForce => _baseStats.JumpForce;
 }

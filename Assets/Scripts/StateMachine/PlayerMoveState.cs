@@ -9,6 +9,7 @@ public class PlayerMoveState : PlayerBaseState
     public override void Enter()
     {
         StateMachine.Animator.CrossFade(RUN_HASH, CROSS_FADE_DURATION);
+        AudioManager.Instance.PlayFootstepSfx();
     }
 
     public override void Tick(float deltaTime)
@@ -22,7 +23,7 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void Exit()
     {
-        
+        AudioManager.Instance.StopFootstepSfx();
     }
 
     private Vector3 CalculateMovement()

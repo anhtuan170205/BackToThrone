@@ -8,6 +8,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (!other.CompareTag(PLAYER_TAG)) return;
 
+        AudioManager.Instance.PlayCheckpointSfx();
         StaminaManager.Instance.AddStamina(5f);
         LevelGenerator.Instance.IncreaseDifficulty();
     }

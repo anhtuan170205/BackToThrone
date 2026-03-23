@@ -6,6 +6,7 @@ public class Coin : Pickup
     protected override void OnPickup()
     {
         ScoreManager.Instance.AddScore(_scoreValue);
+        AudioManager.Instance.PlayCoinPickupSfx();
         Destroy(gameObject);
     }
 }

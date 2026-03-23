@@ -11,6 +11,7 @@ public class PlayerJumpState : PlayerBaseState
     {
         StateMachine.Animator.CrossFade(JUMP_HASH, CROSS_FADE_DURATION);
         StateMachine.ForceReceiver.SetVerticalVelocity(StateMachine.PlayerStatProvider.JumpForce);
+        AudioManager.Instance.PlayJumpSfx();
     }
 
     public override void Tick(float deltaTime)

@@ -11,6 +11,11 @@ This project is structured around small, focused systems rather than one large c
 
 ---
 
+## Project Demo
+https://youtu.be/fKqodS0EmkA
+
+---
+
 ## Key Characteristics
 - Modular architecture with clear system boundaries
 - Event-driven communication between gameplay systems

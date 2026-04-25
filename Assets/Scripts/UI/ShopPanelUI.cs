@@ -7,21 +7,17 @@ public class ShopPanelUI : MonoBehaviour
     private void Start()
     {
         ShopManager.Instance.OnShopDataChanged += HandleShopDataChanged;
-        ScoreManager.Instance.OnTotalScoreChanged += HandleTotalScoreChanged;
         HandleShopDataChanged();
-        HandleTotalScoreChanged(ScoreManager.Instance.TotalScore);
     }
 
     private void OnDestroy()
     {
         ShopManager.Instance.OnShopDataChanged -= HandleShopDataChanged;
-        ScoreManager.Instance.OnTotalScoreChanged -= HandleTotalScoreChanged;
     }
 
     private void OnEnable()
     {
         HandleShopDataChanged();
-        HandleTotalScoreChanged(ScoreManager.Instance.TotalScore);
     }
 
     private void HandleShopDataChanged()
@@ -30,10 +26,5 @@ public class ShopPanelUI : MonoBehaviour
         {
             item.Refresh();
         }
-    }
-
-    private void HandleTotalScoreChanged(int newTotalScore)
-    {
-        HandleShopDataChanged();
     }
 }
